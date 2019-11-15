@@ -5,6 +5,7 @@ var logger = require('morgan');
 
 var pg = require('pg');
 var conString = process.env.DB; // "postgres://username:password@localhost/database";
+const port = process.env.PORT;
 
 app.use(logger('dev'));
 
@@ -60,6 +61,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
