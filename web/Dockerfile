@@ -1,11 +1,11 @@
 FROM node:13.1.0-alpine
 
-WORKDIR /var/www
+WORKDIR /app
 
-ADD ./app.js .
-ADD ./package.json .
+COPY . /app
 RUN npm i
-RUN ls 
 
-CMD ["node",  "/var/www/app.js"]
+EXPOSE $APP_PORT
+
+CMD ["npm", "start"]
 

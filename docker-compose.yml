@@ -1,26 +1,29 @@
 version: '3'
 services:
-  api:
-    build: ./api  
-    depends_on: 
-      - db
-    environment: 
-      - PORT=4005
-      - DB=postgres://username:password@db:5432/database
-  web: 
-    build: ./web
-    depends_on: 
-      - api
-    environment:
-      - WEB_PORT=4006
-      - API_HOST=http://localhost:4005/
   db: 
     image: postgres:9.6.15-alpine
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=john
       - POSTGRES_PASSWORD=pwd0123456789
       - POSTGRES_DB=mydb
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
     ports:
-      - "54320:5432"
+      - 54320:5432
+  api:
+    build: ./api  
+    restart: always
+    environment: 
+      - PORT=3000
+      - DB='postgres://john:pwd0123456789@db:5432/database'
+    ports:
+      - 3000:3000
+  web: 
+    build: ./web
+    environment:
+      - API_HOST=http://localhost:3000
+    links:
+      - api
+    ports:
+      - 3001:3001
