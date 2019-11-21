@@ -5,7 +5,5 @@ WORKDIR /app
 COPY . /app
 RUN npm i
 
-EXPOSE $APP_PORT
-
 CMD ["npm", "start"]
 
