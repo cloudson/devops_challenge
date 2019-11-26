@@ -6,17 +6,15 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=john
-      - POSTGRES_PASSWORD=pwd0123456789
-      - POSTGRES_DB=mydb
-    ports:
-      - 54320:5432
+      - POSTGRES_USER='john'
+      - POSTGRES_PASSWORD='la'
+      - POSTGRES_DB='mydb'
   api:
     build: ./api  
     restart: always
     environment: 
       - PORT=3000
-      - DB='postgres://john:pwd0123456789@db:5432/mydb'
+      - DB='postgres://john:la@db:5432/mydb'
     ports:
       - 3000:3000
     links:
@@ -25,7 +23,7 @@ services:
     build: ./web
     environment:
       - PORT=3001
-      - API_HOST=http://0.0.0.0:3000
+      - API_HOST=http://api:3000
     links:
       - api
     ports:
