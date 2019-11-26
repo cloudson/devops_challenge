@@ -1,10 +1,10 @@
 version: '3'
 services:
   db: 
-    image: postgres:9.6.15-alpine
+    image: postgres:alpine
     restart: always
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER='john'
       - POSTGRES_PASSWORD='la'
@@ -28,3 +28,6 @@ services:
       - api
     ports:
       - 3001:3001
+
+volumes:
+  db:
